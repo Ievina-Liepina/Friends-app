@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/articles">Go back</a>
+<div>
+    <h4>Your Friends</h4>
+    <ul>
+        {% for friend in friends %}
+        <li>{{ friend.name }} {{ friend.surname }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div>
+    <h4>Your Invites</h4>
+    <ul>
+        {% for invite in invites %}
+        <li>
+            {{ invite.name }} {{ invite.surname }}
+        </li>
+        <form method="post" action="/friends/{{ invite.friendId }}">
+            <button type="submit">Accept invite</button>
+        </form>
+        {% endfor %}
+    </ul>
+</div>
+<div>
+    <h4>Search user</h4>
+    <form method="post" action="/friends/invite">
+        <label>Search:</label>
+        <input type="text" name="search">
+        <button type="submit">Invite</button>
+    </form>
+    {% for search in searchResults %}
+    <li>
+        {{ search.name }} {{ search.surname }}
+    </li>
+    <form method="post" action="/friends/{{ search.friendId }}">
+        <button type="submit">Invite</button>
+    </form>
+    {% endfor %}
+</div>
+</body>
+</html>

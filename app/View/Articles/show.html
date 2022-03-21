@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>{{article.title}}</h3>
+<a href="/articles">Go back</a>
+
+
+<p>{{article.description}}</p>
+<p>Author:{{article.author}}</p>
+<p>Created at:{{article.createdAt}}</p>
+<p>Likes: {{ likeCount }}</p>
+
+{% if userName != null %}
+{% if userId in likeId %}
+<form method="post" action="/articles/{{ article.id }}/unlike">
+    <button type="submit">Unlike</button>
+</form>
+{% else %}
+<form method="post" action="/articles/{{ article.id }}/like">
+    <button type="submit">Like</button>
+</form>
+{% endif %}
+{% endif %}
+
+
+{% if userName == null %}
+<a href="/login">Login to comment</a>
+{% else %}
+<form method="post" action="/articles/{{ article.id }}/comment">
+    <div>
+        <textarea id="comment" name="comment" rows="5" cols="30"></textarea>
+    </div>
+    <div>
+        <button type="submit">Comment</button>
+    </div>
+</form>
+{% endif %}
+
+
+<div>
+    <ul>
+        {% for comment in comments %}
+        {% if userId == comment.authorId and userName != null %}
+        <form method="post" action="/articles/{{ comment.id }}/{{ comment.articleId }}/deleteComment">
+            <button type="submit">Delete comment</button>
+        </form>
+        {% endif %}
+
+        <fieldset>
+            <legend>{{ comment.name }} {{ comment.surname }}</legend>
+            <li>{{ comment.comment }}</li>
+
+            <li> Created at: {{ comment.createdAt }}</li>
+        </fieldset>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>

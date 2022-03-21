@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/articles">Back</a>
+<div>
+    <h4>SIGN UP</h4>
+    <form action="/signup" method="post">
+        <input type="text" name="email" placeholder="E-mail" value="{{ inputs['email'] }}">
+        <input type="text" name="name" placeholder="Name" value="{{ inputs['name'] }}">
+        <input type="text" name="surname" placeholder="Surname" value="{{ inputs['surname'] }}">
+        <input type="date" name="birthday" value="{{ inputs['birthday'] }}">
+        <input type="password" name="password" placeholder="Password">
+        <br>
+        <button type="submit">SIGN UP</button>
+    </form>
+</div>
+<div>
+    {% for error in errors %}
+
+    <li>
+        {{ error[0] }}
+    </li>
+
+    {% endfor %}
+</div>
+</body>
+</html>

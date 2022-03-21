@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<<h3>ARTICLES</h3>
+<div>
+    {% if userName == null %}
+    <a href="/signup">Sign Up</a>
+    <a href="/login">Login</a>
+    {% else %}
+    <a href="/logout">Logout</a>
+
+    <a href="/friends/{{ userId }}">Friends</a>
+
+    <p>Logged in as: {{userName}}</p>
+    {% endif %}
+
+
+
+    {% if userName == null %}
+    <a href="/login">Login to add a new article</a>
+    {% else %}
+    <a href="/articles/create">Create New Article</a>
+    {% endif %}
+</div>
+<table>
+    <thead>
+    <th>Title</th>
+    <th>Author</th>
+    <th>Created at</th>
+    </thead>
+    <tbody>
+    {% for article in articles %}
+    <tr>
+        <td ><a class="title" href="/articles/{{ article.id }}"> {{ article.title }} </a></td>
+        <td><p> {{ article.author }} </p></td>
+        <td><p> {{ article.createdAt }} </p></td>
+        {% if userId == article.authorId and userName != null %}
+        <td><form method="post" action="/articles/{{ article.id }}/delete">
+            <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+        </form></td>
+
+        <td><form method="post" action="/articles/{{ article.id }}/update">
+            <button type="submit">Edit</button>
+        </form></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
